@@ -122,6 +122,41 @@ void revlink(linklist l)
 		p = q;
 	}
 }//将单链表就地逆置
+linklist mergelinklist(linklist la, linklist lb)
+{
+	node* pa, * pb, * r;
+	linklist lc;
+	pa = la->next;
+	pb = lb->next;
+	lc = la;
+	lc->next = NULL;
+	r = lc;
+	while (pa && pb)
+	{
+		if (pa->data <= pb->data)
+		{
+			r->next = pa;
+			r = pa;
+			pa = pa->next;
+		}
+		else
+		{
+			r->next = pb;
+			r = pb;
+			pb = pb->next;
+		}
+	}
+	if (pa)
+	{
+		r->next = pa;
+	}
+	else
+	{
+		r->next = pb;
+	}
+	free(lb);
+	return lc;
+}//将两个非递减有序排列单链表la和lb合并为非递减有序排列的单链表lc
 int main()
 {
 	return 0;
