@@ -157,6 +157,57 @@ linklist mergelinklist(linklist la, linklist lb)
 	free(lb);
 	return lc;
 }//将两个非递减有序排列单链表la和lb合并为非递减有序排列的单链表lc
+linklist merge_loop_head(linklist la, linklist lb)
+{
+	node* ra, * rb;
+	ra = la;
+	rb = lb;
+	while (ra->next != la)
+	{
+		ra = ra->next;
+	}
+	while (rb->next != lb)
+	{
+		rb = rb->next;
+	}
+	ra->next = lb->next;
+	rb->next = la;
+	free(lb);
+	return la;
+}//将两个带头指针的循环单链表la，lb合并为一个循环单链表
+linklist merge_loop_tail(linklist ra, linklist rb)
+{
+	linklist la;
+	la = ra->next;
+	ra->next = rb->next->next;
+	free(rb->next);
+	rb->next = la;
+	return rb;
+}//将两个带尾指针的循环单链表la，lb合并为一个循环单链表
+typedef struct dnode
+{
+	int data;
+	struct dnode* prior, * next;
+}dnode,*dlinklist;//双向链表
+void dlinkins(dlinklist l, dnode* p, int e)
+{
+	dnode* pnew;
+	pnew = (dnode*)malloc(sizeof(dnode));
+	if (pnew != NULL)
+	{
+		pnew->data = e;
+		pnew->prior = p->prior;
+		p->prior->next = pnew;
+		pnew->next = p;
+		p->prior = pnew;
+	}
+}//在双链表l中p所指定的结点之前插入值为e的结点
+#define maxsize 10
+typedef struct snode
+{
+	int data;
+	int next;//游标 cursor 模拟指针
+}snode, staticlist[maxsize + 1];//静态链表结点
 int main()
 {
 	return 0;
