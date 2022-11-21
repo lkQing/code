@@ -208,6 +208,39 @@ typedef struct snode
 	int data;
 	int next;//游标 cursor 模拟指针
 }snode, staticlist[maxsize + 1];//静态链表结点
+node* search_mid(linklist l)
+{
+	node* fast, * slow;
+	fast = l;
+	slow = l;
+	while (fast && fast->next)
+	{
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+	return slow;
+}//返回链表的中间结点
+node* search_tail_k(linklist l, int k)
+{
+	node* fast, * slow;
+	slow = l;
+	fast = l;
+	while (k)
+	{
+		if (fast == NULL)
+		{
+			return NULL;
+		}
+		fast = fast->next;
+		k--;
+	}
+	while (fast)
+	{
+		fast = fast->next;
+		slow = slow->next;
+	}
+	return slow;
+}//返回链表中倒数第k个结点
 int main()
 {
 	return 0;
